@@ -1,3 +1,4 @@
+'use client' //Esta es una directiva que indica que este código debe ejecutarse en el navegador del cliente.
 import { BellRing, Search } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -5,11 +6,16 @@ import { cn } from "@/lib/utils";
 import { Logo } from "@/components/Shared/Logo";
 import { itemsNavbar } from "@/data/itemsNavbar";
 import Link from "next/link";
+import { useScrollPosition } from "@/hooks/useScrollPosition";
 
 export function NavbarDesktop() {
+  const scrollPosition = useScrollPosition();
+
+  console.log(scrollPosition);
   return (
     <div className={cn(
-      "z-30 fixed w-full top-0 left-0 right-0  h-16 transition-all duration-300"
+      "z-30 fixed w-full top-0 left-0 right-0  h-16 transition-all duration-300",
+      scrollPosition > 20 ? "bg-black" : "bg-transparent"
       )}>
       <div className="px-[4%] mx-auto h-full">
         <div className="flex gap-4 justify-between h-full items-center">
