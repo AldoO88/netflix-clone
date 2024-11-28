@@ -9,7 +9,7 @@ export default function AuthLayout({
     <div className="h-full">
       <div className="h-full relative">
         <div className="bg-black h-full min-h-screen absolute w-full -z-10">
-          <div className="bg-[url('/images/login-bg.jpg')] h-full opacity-50 "></div>
+          <div className="bg-[url('/images/login-bg-mx.jpg')] h-full opacity-50 bg-no-repeat bg-cover"></div>
         </div>
         <div className="px-8 py-5 max-w-7xl mx-auto">
           <Logo/>

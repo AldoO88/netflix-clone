@@ -17,7 +17,7 @@ export function Terms() {
         <Button
           variant='ghost'
           onClick={() => setShowExtraTerms(!showExtraTerms)}
-          className="opacity-1 text-[#0071eb] hover:bg-transparent p-0 ml-1 h-fit"
+          className="opacity-1 text-[#0071eb] hover:bg-transparent hover:text-white p-0 ml-1 h-fit"
         >
           Más información
         </Button>

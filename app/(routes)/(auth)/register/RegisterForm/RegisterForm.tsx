@@ -1,5 +1,4 @@
 "use client"
-import { useState } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -14,35 +13,32 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { formSchema } from "./RegisterForm.form"
 
-import { formSchema } from "./LoginForm.form"
-import { FormError } from "./FormError"
-
-export function LoginForm() {
-
-  const [error, setError] = useState<string | undefined>('');
-
+export function RegisterForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
+      repeatPassword: "",
     },
-  });
-
+  })
+ 
+  // 2. Define a submit handler.
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    console.log(values)
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full gap-4 flex flex-col">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="Correo electrónico" {...field} className="h-14 text-white"/>
+                <Input placeholder="Correl electrónico" {...field} className="h-14"/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -54,14 +50,25 @@ export function LoginForm() {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="Constraseña" {...field} className="h-14 text-white" type="password"/>
+                <Input placeholder="Contraseña" {...field} className="h-14" type="password"/>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <FormError message={error}/>
-        <Button type="submit" className="w-full bg-[#E50914]">Iniciar sesión</Button>
+        <FormField
+          control={form.control}
+          name="repeatPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input placeholder="Repite la contraseña" {...field} className="h-14" type="password"/>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full bg-[#E50914]">Registrarse</Button>
       </form>
     </Form>
   )
