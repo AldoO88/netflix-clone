@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
+import axios from "axios";
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -14,8 +14,11 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { formSchema } from "./RegisterForm.form"
+import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export function RegisterForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -26,8 +29,21 @@ export function RegisterForm() {
   })
  
   // 2. Define a submit handler.
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values)
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await axios.post("/api/auth/register", values)
+      
+      toast({
+        title: "El usuario se ha registrado correctamente",
+      })
+      router.push("/profiles")
+    } catch (error) {
+      console.error(error)
+      toast({
+        title: "Ha ocurrido un error al registrar el usuario",
+        variant: "destructive",
+      })
+    }
   }
   return (
     <Form {...form}>

@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input"
 
 import { formSchema } from "./LoginForm.form"
 import { FormError } from "./FormError"
+import { login } from "@/actions/login"
+import { toast } from "@/hooks/use-toast"
 
 export function LoginForm() {
 
@@ -30,8 +32,19 @@ export function LoginForm() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      login(values).then((data) => {
+        if(data?.success) {
+          toast({
+            title: "Login Successful",
+          })
+        }
+      })
+    
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <Form {...form}>
